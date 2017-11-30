@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Blackjack game</title>
+</head>
+<body>
+	<h1>Blackjack</h1>
+	
+	<div>Balance: {{ game.getMoney }}</div>
+	
+	<h2>Player hand</h2>
+	
+	{{ #game.player.hand }}
+		<div>{{ face }} of {{ suit }}</div>
+	{{ /game.player.hand }}
+	
+	<h2>Dealer hand</h2>
+	{{ #game.dealer.hand }}
+		<div>{{ face }} of {{ suit }}</div>
+	{{ /game.dealer.hand }}
+		
+
+	<form method="get" action="/hit">
+		<button>hit me</button>
+
+	</form>
+	<form method="post" action="/stand">
+		<button>stand</button>
+	</form>
+
+
+	
+
+</body>
+</html>
