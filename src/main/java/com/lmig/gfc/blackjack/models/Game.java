@@ -49,28 +49,35 @@ public class Game {
 	}
 
 	public void hit() {
-		Card card = deck.pullCardFromDeck();
-		player.acceptCard(card);
-	}
-	
-	public ArrayList<Card> getPlayerHand() {
-		
+		if(player.getHand().getTotal() < 21) {			
+			Card card = deck.pullCardFromDeck();
+			player.acceptCard(card);
+		}
+	} 
+	 
+	public Hand getPlayerHand() {
 		return player.getHand();
 				
 	}
-	
-	public ArrayList<Card> getDealerHand() {
+	 
+	public Hand getDealerHand() {
 		return dealer.getHand();
 		
 	}
 	
-//	public int getPlayerTotal() {
-//		
-//		
-//	}
+	public int getPlayerTotal() {
+		return player.getHand().getTotal();
+	}
 	
-	
+	public int getDealerTotal() {
+		return dealer.getHand().getTotal();
+	}
+		
 	public void stand() {
+		while(dealer.getHand().getTotal() < 17) {
+			Card card = deck.pullCardFromDeck();
+			dealer.acceptCard(card);
+		}
 		
 		
 		

@@ -3,10 +3,10 @@ package com.lmig.gfc.blackjack.models;
 import java.util.ArrayList;
 
 public class Player {
-	
+	 
 //	private double total;
 	private Hand hand;
-	 
+	  
 	public Player() {
 //		this.total = 100;
 		hand = new Hand();
@@ -16,8 +16,8 @@ public class Player {
 //		return total;
 //	}
 	
-	public ArrayList<Card> getHand() {
-		return hand.getCards();
+	public Hand getHand() {
+		return hand;
 	}
 	
 	public void acceptCard(Card card) {

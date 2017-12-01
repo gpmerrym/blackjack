@@ -14,7 +14,7 @@ public class Deck {
 		// CLUBS
 		for (int i = 2; i < 11; i += 1) {
 			cards.add(new NumberCard(Suits.CLUBS, i));
-		}
+		} 
 		
 		cards.add(new FaceCard(Suits.CLUBS, Faces.JACK));
 		cards.add(new FaceCard(Suits.CLUBS, Faces.QUEEN));

@@ -11,8 +11,8 @@ public class Dealer {
 		hand = new Hand();
 	}
  
-	public ArrayList<Card> getHand() {
-		return hand.getCards();
+	public Hand getHand() {
+		return hand;
 	}
 	
 	public void acceptCard(Card card) {

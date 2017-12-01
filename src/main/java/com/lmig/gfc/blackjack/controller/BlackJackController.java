@@ -57,8 +57,12 @@ public class BlackJackController {
 
 	@GetMapping("/stand")
 	public ModelAndView stand() {
+		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/play");
+		
+		game.stand();
+		
 		return mv;
 	}
 

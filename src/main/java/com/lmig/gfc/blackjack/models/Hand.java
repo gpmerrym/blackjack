@@ -1,6 +1,7 @@
 package com.lmig.gfc.blackjack.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -21,7 +22,7 @@ public class Hand {
 
 	}
 
-	public ArrayList<Card> getCards() {
+	public List<Card> getCards() {
 		return cards;
 	}
 

@@ -6,31 +6,33 @@
 </head>
 <body>
 	<h1>Blackjack</h1>
-	
+
 	<div>Balance: {{ game.getMoney }}</div>
-	
+
 	<h2>Player hand</h2>
-	
-	{{ #game.player.hand }}
+
+	{{#game.getPlayerHand.cards}}
 		<div>{{ face }} of {{ suit }}</div>
-	{{ /game.player.hand }}
-	
+	{{/game.getPlayerHand.cards}}
+
+	<h3>Player total: {{ game.getPlayerTotal }}</h3>
 	<h2>Dealer hand</h2>
-	{{ #game.dealer.hand }}
+	{{#game.getDealerHand.cards}}
 		<div>{{ face }} of {{ suit }}</div>
-	{{ /game.dealer.hand }}
-		
+	{{/game.getDealerHand.cards}}
+
+
 
 	<form method="get" action="/hit">
 		<button>hit me</button>
 
 	</form>
-	<form method="post" action="/stand">
+	<form method="get" action="/stand">
 		<button>stand</button>
 	</form>
 
 
-	
+
 
 </body>
 </html>
