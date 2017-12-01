@@ -1,37 +1,34 @@
 package com.lmig.gfc.blackjack.models;
 
-import java.util.ArrayList;
-
 public class Player {
-	 
-//	private double total;
+
+	
 	private Hand hand;
-	  
+	private double money;
+
 	public Player() {
-//		this.total = 100;
+		money = 100;
 		hand = new Hand();
 	}
- 
-//	public double getMoney() {
-//		return total;
-//	}
-	
+
 	public Hand getHand() {
 		return hand;
 	}
-	
+
 	public void acceptCard(Card card) {
 		hand.acceptCard(card);
-	}
-	
-	
-	
-	
-	
- 
+ 	}
 
-	
-	
-		
+	public void makeNewHand() {
+		hand = new Hand();
+	}
+
+	public double getMoney() {
+		return money;
+	}
+
+	public double setMoney(double money) {
+		return this.money = money;
+	}
 
 }

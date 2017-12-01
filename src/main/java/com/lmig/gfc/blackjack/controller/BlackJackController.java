@@ -12,9 +12,12 @@ import com.lmig.gfc.blackjack.models.Game;
 public class BlackJackController {
 
 	private Game game;
+	
+	
 
 	public BlackJackController() {
 		game = new Game();
+
 	}
 
 	@GetMapping("/")
@@ -30,6 +33,7 @@ public class BlackJackController {
 		mv.setViewName("redirect:/play");
 		
 		game.makePlayerBet(bet);
+		
 		game.deal();
 		return mv;
 	}
@@ -38,9 +42,6 @@ public class BlackJackController {
 	public ModelAndView showPlayPage() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("play");
-		
-		
-		
 		mv.addObject("game", game);
 		return mv;
 	}
@@ -49,20 +50,27 @@ public class BlackJackController {
 	public ModelAndView hit() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/play");
-		
+
 		game.hit();
-		
+
 		return mv;
 	}
 
 	@GetMapping("/stand")
 	public ModelAndView stand() {
-		
+
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/play");
-		
+
 		game.stand();
-		
+
+		return mv;
+	}
+	
+	@GetMapping("/return")
+	public ModelAndView returnToBet() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 

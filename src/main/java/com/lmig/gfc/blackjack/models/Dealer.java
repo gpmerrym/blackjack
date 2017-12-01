@@ -20,5 +20,10 @@ public class Dealer {
 		
 	}
 
+	public void makeNewHand() {
+		hand = new Hand();
+		
+	}
+
 	
 }

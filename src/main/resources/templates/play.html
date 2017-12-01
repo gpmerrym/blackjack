@@ -7,22 +7,31 @@
 <body>
 	<h1>Blackjack</h1>
 
-	<div>Balance: {{ game.getMoney }}</div>
+	<div>Balance: {{ game.getCurrentMoney }}</div>
 
 	<h2>Player hand</h2>
 
 	{{#game.getPlayerHand.cards}}
 		<div>{{ face }} of {{ suit }}</div>
+		
 	{{/game.getPlayerHand.cards}}
 
 	<h3>Player total: {{ game.getPlayerTotal }}</h3>
+	<h3>Player bust: {{ game.isPlayerBust }}</h3>
+	<h3>Player blackjack: {{ game.isPlayerBlackJack }}</h3>
+	
 	<h2>Dealer hand</h2>
 	{{#game.getDealerHand.cards}}
 		<div>{{ face }} of {{ suit }}</div>
 	{{/game.getDealerHand.cards}}
 
+	<h3>Dealer total: {{ game.getDealerTotal }}</h3>
+	<h3>Dealer bust: {{ game.isDealerBust }}</h3>
+	<h3>Dealer blackjack: {{ game.isDealerBlackJack }}</h3>
 
-
+	<div>Game Over: {{ game.isGameOver }}</div>
+	<div>Dealer won? {{ game.isDealerWon }}</div>
+	<div>Player won? {{ game.isPlayerWon }}</div>
 	<form method="get" action="/hit">
 		<button>hit me</button>
 
@@ -30,7 +39,12 @@
 	<form method="get" action="/stand">
 		<button>stand</button>
 	</form>
+	
+	<form method="get" action="/return">
+		<button>Return</button>
+	</form>
 
+	<div>Cards in deck: {{ game.deck.cards.size }}</div>
 
 
 
