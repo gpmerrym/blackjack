@@ -2,7 +2,6 @@ package com.lmig.gfc.blackjack.models;
 
 public class Player {
 
-	
 	private Hand hand;
 	private double money;
 
@@ -17,7 +16,7 @@ public class Player {
 
 	public void acceptCard(Card card) {
 		hand.acceptCard(card);
- 	}
+	}
 
 	public void makeNewHand() {
 		hand = new Hand();

@@ -10,7 +10,7 @@
 		
 		<div class="bet-input">
 			<form class="form-action" method="post" action="/bet">
-				<input name="bet" type="number" required autofocus></input>
+				<input name="bet" type="number" required autofocus min = "1" max="{{game.getCurrentMoney}}">
 				<button>Submit Bet</button>
 			</form>
 		</div>

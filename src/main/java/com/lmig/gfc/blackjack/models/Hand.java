@@ -36,18 +36,17 @@ public class Hand {
 		int aceCounter = 0;
 		for (Card card : cards) {
 			sum += card.getValue();
-			
+
 			if (card.getValue() == 11) {
 				aceCounter += 1;
 			}
-			
+
 			while (sum > 21 && aceCounter > 0) {
 				sum -= 10;
 				aceCounter -= 1;
 			}
-			
+
 		}
-		
 
 		return sum;
 

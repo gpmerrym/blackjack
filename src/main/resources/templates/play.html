@@ -10,39 +10,61 @@
 	<div>Balance: {{ game.getCurrentMoney }}</div>
 
 	<h2>Player hand</h2>
-
 	{{#game.getPlayerHand.cards}}
-		<div>{{ face }} of {{ suit }}</div>
-		
+	<div>{{ face }} of {{ suit }}</div>
 	{{/game.getPlayerHand.cards}}
 
-	<h3>Player total: {{ game.getPlayerTotal }}</h3>
-	<h3>Player bust: {{ game.isPlayerBust }}</h3>
-	<h3>Player blackjack: {{ game.isPlayerBlackJack }}</h3>
-	
+	<div>Player total: {{ game.getPlayerTotal }}</div>
+
 	<h2>Dealer hand</h2>
-	{{#game.getDealerHand.cards}}
-		<div>{{ face }} of {{ suit }}</div>
-	{{/game.getDealerHand.cards}}
+	{{#game.isGameOverHand}} 
+		{{#game.getDealerHand.cards}}
+			<div>{{ face }} of {{ suit }}</div>
+		{{/game.getDealerHand.cards}}
+	{{/game.isGameOverHand}}
+	
+	{{^game.isGameOverHand}}
+		{{#game.getDealerHand.cards.0}}
+			<div>{{ face }} of {{ suit }}</div>
+		{{/game.getDealerHand.cards.0}}
+		
+	{{/game.isGameOverHand}} 
+		
 
-	<h3>Dealer total: {{ game.getDealerTotal }}</h3>
-	<h3>Dealer bust: {{ game.isDealerBust }}</h3>
-	<h3>Dealer blackjack: {{ game.isDealerBlackJack }}</h3>
+	<div>Dealer total: {{ game.getDealerTotal }}</div>
+	
+	
 
-	<div>Game Over: {{ game.isGameOver }}</div>
-	<div>Dealer won? {{ game.isDealerWon }}</div>
-	<div>Player won? {{ game.isPlayerWon }}</div>
+	{{^game.isGameOverHand}}
 	<form method="get" action="/hit">
 		<button>hit me</button>
-
 	</form>
+
 	<form method="get" action="/stand">
 		<button>stand</button>
 	</form>
 	
+	{{/game.isGameOverHand}} 
+		
+	{{#game.isDealerWon}} 
+		Sorry, Dealer won. You lost. 
+	{{/game.isDealerWon}} 
+	{{#game.isPlayerWon}} 
+		Player wins!	
+	{{/game.isPlayerWon}} 
+	{{#game.isDraw}} 
+		Draw! 
+	{{/game.isDraw}}
+		
+	{{^game.isGameOver}}
 	<form method="get" action="/return">
 		<button>Return</button>
 	</form>
+	{{/game.isGameOver}}
+		
+	{{#game.isGameOver}}
+		<div>Game Over! You ran out of money!</div>
+	{{/game.isGameOver}}
 
 	<div>Cards in deck: {{ game.deck.cards.size }}</div>
 

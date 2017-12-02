@@ -12,18 +12,16 @@ import com.lmig.gfc.blackjack.models.Game;
 public class BlackJackController {
 
 	private Game game;
-	
-	
 
 	public BlackJackController() {
 		game = new Game();
-
 	}
 
 	@GetMapping("/")
 	public ModelAndView showForm() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("default");
+		mv.addObject("game", game);
 		return mv;
 	}
 
@@ -31,13 +29,11 @@ public class BlackJackController {
 	public ModelAndView submitBet(double bet) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/play");
-		
 		game.makePlayerBet(bet);
-		
 		game.deal();
 		return mv;
 	}
-
+ 
 	@GetMapping("/play")
 	public ModelAndView showPlayPage() {
 		ModelAndView mv = new ModelAndView();
@@ -50,46 +46,23 @@ public class BlackJackController {
 	public ModelAndView hit() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/play");
-
 		game.hit();
-
 		return mv;
 	}
 
 	@GetMapping("/stand")
 	public ModelAndView stand() {
-
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/play");
-
 		game.stand();
-
 		return mv;
 	}
-	
+
 	@GetMapping("/return")
 	public ModelAndView returnToBet() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/");
 		return mv;
 	}
-
-	// Hand hand = new Hand();
-	// hand.acceptCard(new AceCard(Suits.DIAMONDS));
-	// hand.acceptCard(new NumberCard(Suits.CLUBS, 4));
-	//
-	// Deck deck = new Deck();
-	// //deck.pullCardFromDeck();
-	// //deck.shuffle();
-	//
-	// //Card tempCard = deck.pullCardFromDeck();
-	//
-	// //System.out.println(tempCard.getFace() + " of " +
-	// tempCard.getSuit().toString());
-	//
-	// mv.addObject("total", total);
-	// mv.addObject("hand", hand);
-	// mv.addObject("deck", deck);
-	// //mv.addObject("card", aCard);
 
 }

@@ -7,7 +7,6 @@ public class Game {
 	private Dealer dealer;
 	private double currentBet;
 	private double currentMoney;
-	
 
 	private boolean playerBust;
 	private boolean dealerBust;
@@ -16,29 +15,33 @@ public class Game {
 
 	private boolean playerWon;
 	private boolean dealerWon;
+	private boolean gameOverHand;
 	private boolean gameOver;
+	private boolean draw;
 
 	public Game() {
 		player = new Player();
 		dealer = new Dealer();
 		deck = new Deck();
-		
+
 		playerWon = false;
 		dealerWon = false;
+		gameOverHand = false;
 		gameOver = false;
 
 		playerBust = false;
 		dealerBust = false;
 		playerBlackJack = false;
 		dealerBlackJack = false;
-		
+		draw = false;
+
 		currentMoney = player.setMoney(player.getMoney() - currentBet);
-		
+
 		deck.shuffle();
 	}
 
 	public void deal() {
-		
+
 		resetFlags();
 		player.makeNewHand();
 		dealer.makeNewHand();
@@ -52,34 +55,44 @@ public class Game {
 		dealer.acceptCard(card4);
 		playerBlackJack();
 		dealerBlackJack();
+
 	}
-	 
-	
+
 	public void makePlayerBet(double bet) {
 		currentBet = bet;
-		currentMoney -= bet; 
-		//currentMoney = player.setMoney(player.getMoney() - bet);		
-				//player.setMoney(player.getMoney() - bet);
+		if (bet <= currentMoney) {
+			currentMoney -= bet;
+		}
+		// currentMoney = player.setMoney(player.getMoney() - bet);
+		// player.setMoney(player.getMoney() - bet);
 	}
-	
+ 
 	public void twoToOnePayOut() {
-		currentMoney += (currentBet*(2));
+		currentMoney += (currentBet * (2));
 	}
-	
+
 	public void threeToTwoPayOut() {
-		currentMoney += (currentBet*(1.5));
+		currentMoney += (currentBet * (1.5));
 	}
-	
+
 	public void addBet() {
 		currentMoney += currentBet;
 	}
+
+	public void checkMoney() {
+		if (currentMoney <= 0) {
+			gameOver = true;
+		}
+	}
+ 
 	public void hit() {
 		if (player.getHand().getTotal() < 21) {
 			Card card = deck.pullCardFromDeck();
 			player.acceptCard(card);
 		}
 		playerBust();
-
+		
+ 
 	}
 
 	public void stand() {
@@ -88,28 +101,34 @@ public class Game {
 			dealer.acceptCard(card);
 		}
 		dealerBust();
-		
-		
 		gameOverForHand();
-		
+		checkMoney();
 
 	}
- 
+
 	public void gameOverForHand() {
 		if (!dealerBust) {
+			// dealer total > player total.. player loses money
 			if (dealer.getHand().getTotal() > player.getHand().getTotal()) {
-				gameOver = true;
+				gameOverHand = true;
 				dealerWon = true;
-			
-			} 
+
+			}
+			// player total > dealer total - 2/1 payout
 			if (player.getHand().getTotal() > dealer.getHand().getTotal()) {
-				gameOver = true;
+				gameOverHand = true;
 				playerWon = true;
 				twoToOnePayOut();
 			}
-			
+			// same total - player keeps money
 			if (player.getHand().getTotal() == dealer.getHand().getTotal()) {
-				gameOver = true;
+				gameOverHand = true;
+				draw = true;
+				addBet();
+			}
+			// Both blackjack - player keeps money
+			if (playerBlackJack == true && dealerBlackJack == true) {
+				gameOverHand = true;
 				addBet();
 			}
 
@@ -121,8 +140,9 @@ public class Game {
 		if ((player.getHand().getTotal() > 21)) {
 			playerBust = true;
 			dealerWon = true;
-			gameOver = true;
-			
+			gameOverHand = true;
+			checkMoney();
+ 
 		}
 	}
 
@@ -130,11 +150,9 @@ public class Game {
 		if ((dealer.getHand().getTotal() > 21)) {
 			dealerBust = true;
 			playerWon = true;
-			gameOver = true;
+			gameOverHand = true;
 			twoToOnePayOut();
-			
-			
-			
+
 		}
 	}
 
@@ -142,10 +160,10 @@ public class Game {
 		if ((player.getHand().getCardSize() == 2) && (player.getHand().getTotal() == 21)) {
 			playerBlackJack = true;
 			playerWon = true;
-			gameOver = true;
+			gameOverHand = true;
 			threeToTwoPayOut();
-			
-			
+			checkMoney();
+
 		}
 	}
 
@@ -153,8 +171,9 @@ public class Game {
 		if ((dealer.getHand().getCardSize() == 2) && (dealer.getHand().getTotal() == 21)) {
 			dealerBlackJack = true;
 			dealerWon = true;
-			gameOver = true;
-			
+			gameOverHand = true;
+			checkMoney();
+
 		}
 	}
 
@@ -165,10 +184,9 @@ public class Game {
 		dealerBlackJack = false;
 		playerWon = false;
 		dealerWon = false;
-		gameOver = false;
+		gameOverHand = false;
+		
 	}
-	
-	
 
 	// Getters
 	public Hand getPlayerHand() {
@@ -203,8 +221,8 @@ public class Game {
 		return dealerBlackJack;
 	}
 
-	public boolean isGameOver() {
-		return gameOver;
+	public boolean isGameOverHand() {
+		return gameOverHand;
 	}
 
 	public boolean isPlayerWon() {
@@ -223,6 +241,12 @@ public class Game {
 		return currentMoney;
 	}
 
-	
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+	public boolean isDraw() {
+		return draw;
+	}
 
 }
